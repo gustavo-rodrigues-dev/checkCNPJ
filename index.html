@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Crop Tool</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="public/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Add custom CSS here -->
+    <link href="public/css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" href="public/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="public/css/jquery.Jcrop.min.css">
+</head>
+
+<body>
+
+<div id="wrapper clearfix">
+
+    <!-- Sidebar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top clearfix" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">Consulta CNPJ</a>
+        </div>
+    </nav>
+
+    <div id="clearfix page-wrapper">
+        <div class="row col-lg-12 center-block">
+            <br>
+            <br>
+            <br>
+            <!-- This is the form that our event handler fills -->
+            <form action="processa.php" method="post" class="form-horizontal col-md-4 col-md-offset-4">
+        
+                <div class="form-group">
+                    <label for="cnpj" class="col-sm-2 control-label">CNPJ</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="cnpj" class="form-control" id="cnpj" data-mask="99.999.999/9999-99" placeholder="CNPJ">
+                    </div>
+                  </div>
+                  <div class="form-group">
+
+                    <label for="captcha" class="col-sm-2 control-label">Captcha</label>
+                    <div class="col-sm-10">
+                        <img src="" border="0" id="captchaImage" class="captchaImage">
+                        <a href="#refresh" class="refresh"><i class="fa fa-refresh"></i></a>
+                        <br><br>
+                        <input type="text" name="captcha" class="form-control" id="captcha" placeholder="Escreva o Código Acima ">
+                        <input type="hidden" name="viewstate" value="" id="viewstate" class="viewstate" />
+                    </div>
+                  </div>
+                
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="reset" class="btn btn-large btn-danger"><i class="fa fa-times"></i> Cancelar </button>
+                      <button type="submit" class="btn btn-large btn-success"><i class="fa fa-check"></i> Verificar </button>
+                    </div>
+                  </div>
+                
+            </form>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Dados da Empresa</h4>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div><!-- /.row -->
+
+    </div><!-- /#page-wrapper -->
+
+</div><!-- /#wrapper -->
+
+<!-- JavaScript -->
+<script src="public/js/vendor/jquery-1.10.2.js"></script>
+<script src="public/js/vendor/jquery.mask.min.js"></script>
+<script src="public/js/vendor/bootstrap.js"></script>
+<script src="public/js/vendor/getUrlData.js"></script>
+<script src="public/js/main.js"></script>
+</body>
+</html>
