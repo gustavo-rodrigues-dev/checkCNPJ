@@ -57,6 +57,105 @@ var CheckCNPJ = (function() {
 	}
 
 	var CheckCNPJ = {
+		init : function(){
+			$(document).on('ready', function(){
+				var url = getUrlData();
+
+				if('cnpj' in url){
+					$('#cnpj').val(url.cnpj.mask('##.###.###/####-##'));
+				}
+				var viewstate = $('.viewstate');
+				var captcha = $('.captchaImage');
+				captcha.val('');
+
+				CheckCNPJ.refresh(function(res){
+					if(res.status){
+						captcha.attr('src', res.img);
+						viewstate.val(res.viewstate);
+					}
+				});
+
+			});
+
+			$('.refresh').on('click', function(e){
+				e.preventDefault();
+				var self = $(this);
+				var viewstate = $('#viewstate');
+				var captcha = $('#captchaImage');
+				var captchaText = $('#captcha');
+				captchaText.val('');
+
+				CheckCNPJ.refresh(function(res){
+					if(res.status){
+						captcha.attr('src', res.img);
+						viewstate.val(res.viewstate);
+					}
+				});
+			});
+
+			$('form').on('submit', function(e){
+				$('body').loader('show');
+				e.preventDefault();
+				var template = _.template($('#dataReturn').html());
+				var cnpj = $('#cnpj').val();
+					cnpj = cnpj.replace(/[^0-9]/g, '');
+
+				CheckCNPJ.post({
+					cnpj 		: cnpj,
+					viewstate	: $('#viewstate').val(),
+					captcha 	: $('#captcha').val()
+				}, function(res){
+					$('body').loader('hide');
+					$('.refresh').trigger('click');
+					if(res.length == 0){
+						bootbox.dialog({
+							message: "Erro ao consultar registro, tente novamente!",
+							title: "Erro!",
+							buttons: {
+								danger: {
+									label: "Fechar",
+									className: "btn-danger",
+									callback: function() {
+										//Example.show("uh oh, look out!");
+									}
+								}
+							}
+						});	
+					} else {
+						bootbox.dialog({
+							message: template(res),
+							title: "Dados da Empresa",
+							buttons: {
+								danger: {
+									label: "Fechar",
+									className: "btn-danger",
+									callback: function() {
+										//Example.show("uh oh, look out!");
+									}
+								},
+								success: {
+									label: "Enviar dados",
+									className: "btn-success",
+									callback: function() {
+										window.opener.CheckCnpjPopUp.setCallbackPopup(res);
+										open(location, '_self').close();
+										//Example.show("great success");
+									}
+								}
+							}
+						});
+					}
+					
+				});
+			});
+
+			$('form').on('reset', function(e){
+				e.preventDefault();
+			    $('#cnpj').val('');
+			    $('#captcha').val('');
+			    $('.refresh').trigger('click');
+			})
+		},
 		post : post,
 		refresh : refresh,
 		getDados : getDados
@@ -65,59 +164,3 @@ var CheckCNPJ = (function() {
 	return CheckCNPJ;
 
 }());
-
-$(document).on('ready', function(){
-	var url = getUrlData();
-
-	if('cnpj' in url){
-		$('#cnpj').val(url.cnpj.mask('##.###.###/####-##'));
-	}
-	var viewstate = $('.viewstate');
-	var captcha = $('.captchaImage');
-	captcha.val('');
-
-	CheckCNPJ.refresh(function(res){
-		if(res.status){
-			captcha.attr('src', res.img);
-			viewstate.val(res.viewstate);
-		}
-	});
-
-});
-
-$('.refresh').on('click', function(e){
-	e.preventDefault();
-	var self = $(this);
-	var viewstate = $('#viewstate');
-	var captcha = $('#captchaImage');
-	captcha.val('');
-
-	CheckCNPJ.refresh(function(res){
-		if(res.status){
-			captcha.attr('src', res.img);
-			viewstate.val(res.viewstate);
-		}
-	});
-});
-
-$('form').on('submit', function(e){
-	e.preventDefault();
-	var cnpj = $('#cnpj').val();
-		cnpj = cnpj.replace(/[^0-9]/g, '');
-
-	CheckCNPJ.post({
-		cnpj 		: cnpj,
-		viewstate	: $('#viewstate').val(),
-		captcha 	: $('#captcha').val()
-	}, function(res){
-		console.log(res);
-		$('.refresh').trigger('click');
-	});
-});
-
-$('form').on('reset', function(e){
-	e.preventDefault();
-    $('#cnpj').val('');
-    $('#captcha').val('');
-    $('.refresh').trigger('click');
-})

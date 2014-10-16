@@ -13,8 +13,9 @@
 
     <!-- Add custom CSS here -->
     <link href="public/css/sb-admin.css" rel="stylesheet">
+    <link href="public/js/vendor/jqueryLoader/jquery.loader.min.css" rel="stylesheet">
     <link rel="stylesheet" href="public/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="public/css/jquery.Jcrop.min.css">
+
 </head>
 
 <body>
@@ -63,23 +64,6 @@
                   </div>
                 
             </form>
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Dados da Empresa</h4>
-                        </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             
         </div><!-- /.row -->
 
@@ -87,11 +71,49 @@
 
 </div><!-- /#wrapper -->
 
+<script type="text/template" id="dataReturn">
+    <% if(sitCad == 'ATIVA'){ %>
+        <div class="clearfix alert alert-success" role="alert">
+            <b><i class="fa fa-check"></i> <%- sitCad %> </b>
+
+        </div>
+    <% } else { %>
+        <div class="alert alert-danger" role="alert">
+            <b><i class="fa fa-times"></i> <%- sitCad %> </b>
+        </div>
+    <% } %>
+    <h3>Dados da Empresa</h3>
+    <p>
+        <b>Nome Fantasia: </b> <%- tituloEstab %> </br>
+        <b>Razão Social: </b> <%- nomeEmpre %> </br>
+        <b>Atividade Primária: </b> <%- codDescAtivEconPrin %> </br>
+        <b>Atividade Secundária: </b> <%- codDescAtivEconSec %> </br>
+        <b>Natureza Jurídica: </b> <%- codDescNatJur %> </br>
+        <b>Data de Abertura: </b> <%- dataAber %> </br>
+        <b>Data da Situação Cadastral: </b> <%- dataSitCad %> </br>
+        <b>Motivo da Situação Cadastral: </b> <%- dataSitCad %> </br>
+        <b>Data da Situação especial: </b> <%- dataSitEsp %> </br>
+        <b>Motivo da Situação Especial: </b> <%- sitEsp %> </br>
+        <b>Logradouro: </b> <%- logradouro %> </br>
+        <b>Número: </b> <%- numero %> </br>
+        <b>Complemento: </b> <%- complemento %> </br>
+        <b>CEP: </b> <%- cep %> </br>
+        <b>Bairro: </b> <%- bairro %> </br>
+        <b>Município: </b> <%- municipio %> </br>
+        <b>UF: </b> <%- uf %> </br>
+    </p>
+</script>
 <!-- JavaScript -->
 <script src="public/js/vendor/jquery-1.10.2.js"></script>
 <script src="public/js/vendor/jquery.mask.min.js"></script>
+<script src="public/js/vendor/jqueryLoader/jquery.loader.min.js"></script>
+<script src="public/js/vendor/underscore-min.js"></script>
 <script src="public/js/vendor/bootstrap.js"></script>
+<script src="public/js/vendor/bootbox.min.js"></script>
 <script src="public/js/vendor/getUrlData.js"></script>
 <script src="public/js/main.js"></script>
+<script>
+    CheckCNPJ.init();
+</script>
 </body>
 </html>
