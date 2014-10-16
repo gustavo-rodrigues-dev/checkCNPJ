@@ -139,7 +139,7 @@ function parseHtmlCNPJ($html)
 		$prox = trim($q->item(($i+1))->nodeValue);
 		
 		if($current == 'NÚMERO DE INSCRIÇÃO')
-			$campos['numeroInsc'] = $prox;
+			$campos['numeroInsc'] = preg_replace('/[^0-9]/', '',$prox );
 		
 		if($current == 'DATA DE ABERTURA')
 			$campos['dataAber'] = $prox;
