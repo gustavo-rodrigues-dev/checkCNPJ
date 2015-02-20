@@ -1,0 +1,22 @@
+{
+    "name": "checkCNPJ",
+    "description": "Sistema baseado em cURL para consulta de cnpj",
+    "keywords": ["CNPJ", "cURL", "HACK"],
+    "type": "app",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gustavo da Silva Rodriges",
+            "email": "gustavo.beavis@gmail.com",
+            "homepage": "http://gustavobeavis.github.io",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "slim/slim": "2.*",
+        "guzzlehttp/guzzle": "~5.0"
+    },
+    "autoload": {
+        "classmap": [ "app/core" ]
+    }
+}
