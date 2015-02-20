@@ -1,0 +1,5 @@
+mysql:
+    root_password: 123456
+    user: proj
+    password: proj
+    database: proj
